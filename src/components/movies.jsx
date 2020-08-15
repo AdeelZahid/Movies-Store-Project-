@@ -9,9 +9,14 @@ const Movies = () => {
     setMovies(film);
   };
 
+  const {length: count} = movies;
+
+if (count === 0) return <h4> There are no movies in database</h4> 
+
   return (
-    <div>
-      <h3 className="mb-5">Total {movies.length} Movies Found ... </h3>
+      
+      <div>
+      <h3 className="mb-5">Total {count} Movies Found ... </h3>
       <div className="row">
         <div className="col-2"></div>
         <div className="col-10">
