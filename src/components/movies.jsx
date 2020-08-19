@@ -1,18 +1,24 @@
 import React, { Component  } from "react";
 import Like from './common/like';
 import Pagination from './common/pagination';
+import ListGroup from './common/listGroup';
 import { getMovies } from "../services/fakeMovieService";
+import {getGenres} from '../services/fakeGenreService';
 import {Paginate} from '../utils/paginate';
 
 
 class Movies extends Component {
 
   state = {
-    movies: getMovies(),
+    movies: [],
+    genres: [], 
     pageSize: 4,
-    currentPage: 1
+    currentPage: 1,
   }
   
+  componentDidMount() {
+    this.setState({movies: getMovies(), genres: getGenres() });
+  }
 
    handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
@@ -24,15 +30,17 @@ class Movies extends Component {
     const index = movies.indexOf(movie);
     movies[index] = {...movies[index]};
     movies[index].liked = !movies[index].liked;
-    // setMovies(moviess);
     this.setState({movies});
   };
 
    handlePageChange = page => {
-    // setCurrentPage({currentPage: page})
     this.setState({currentPage: page})
   }
 
+  handleGenreSelect = genre => {
+    console.log(genre);
+    this.setState({selectedGenre : genre})
+  }
  
 
 render() {
@@ -45,11 +53,19 @@ render() {
 
   return (
       
-    <div>
+    <div className="container">
     
     <h3 className="mb-5">Total {count} Movies Found ... </h3>
     <div className="row">
-      <div className="col-2"></div>
+      
+      <div className="col-2">
+        <ListGroup 
+          items={this.state.genres} 
+          selectedItem = {this.state.selectedGenre}
+          onItemSelect={this.handleGenreSelect}
+        />
+      </div>
+      
       <div className="col-10">
         
         <table className="table">
