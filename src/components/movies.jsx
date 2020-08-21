@@ -19,8 +19,8 @@ class Movies extends Component {
   }
   
   componentDidMount() {
-    const genres = [{ _id: " ", name: "All Genres"}, ...getGenres()]
-    this.setState({movies: getMovies(), genres: genres });
+    const genres = [{ _id: "", name: "All Genres"}, ...getGenres()]
+    this.setState({movies: getMovies(), genres });
   }
 
    handleDelete = (movie) => {
@@ -52,14 +52,18 @@ class Movies extends Component {
 
   getPageData = () => {
     const {pageSize, currentPage, sortColumn, selectedGenre, movies: allMovies} = this.state;
-    console.log("All Movies Return ", allMovies)
+    // console.log("All Movies Return ", allMovies)
+    
+    
+
     const filtered = selectedGenre  &&  selectedGenre._id
                 ? allMovies.filter(m => m.genre._id === selectedGenre._id) 
                 : allMovies;
-  console.log("Filtered ", filtered)
+  // console.log("Filtered ", filtered)
+  
   const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order])
   const movies = Paginate(sorted, currentPage, pageSize);
-  console.log(movies)
+  // console.log(movies)
   return {totalCount: filtered.length, data: movies};
   }
 
@@ -69,7 +73,7 @@ render() {
   const {pageSize, currentPage, sortColumn, genres, selectedGenre} = this.state;
 
   if (count === 0) return <h4> There are no movies in database</h4>
-  const {totalCount, data: movies} = this.getPageData();
+  const {totalCount, data} = this.getPageData();
   
 
   return (
@@ -90,7 +94,7 @@ render() {
       <div className="col-10">
         
         <MoviesTable 
-          movies={movies}
+          movies={data}
           sortColumn={sortColumn}
           onLike={this.handleLike}
           onDelete={this.handleDelete}
