@@ -4,7 +4,7 @@ import {Link, NavLink} from 'react-router-dom';
 const NavBar = () => {
   return (
     <div>
-      <nav className="navbar mb-4 navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar mb-4 navbar-expand-sm navbar-light bg-light">
         <Link className="navbar-brand" to="/">
           Movies
         </Link>
@@ -40,6 +40,12 @@ const NavBar = () => {
               </NavLink>
             </li>
             
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+            </li>
+
           </ul>
         </div>
       </nav>
