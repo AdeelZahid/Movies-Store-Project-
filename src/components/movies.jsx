@@ -1,4 +1,5 @@
 import React, { Component  } from "react";
+import {Link} from 'react-router-dom';
 import MoviesTable from './moviesTable';
 import Pagination from './common/pagination';
 import ListGroup from './common/listGroup';
@@ -92,6 +93,13 @@ render() {
       </div>
       
       <div className="col-10">
+
+        <Link 
+          to="movies/new" 
+          className="btn btn-primary" 
+          style={{marginBottom: 20}}>
+             New Movie 
+        </Link>
         
         <MoviesTable 
           movies={data}
